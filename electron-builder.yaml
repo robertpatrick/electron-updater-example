@@ -6,6 +6,7 @@ directories:
   output: dist
 mac:
   category: Utility
+  target: default
   darkModeSupport: false
   type: distribution
   hardenedRuntime: true
