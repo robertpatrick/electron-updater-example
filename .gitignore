@@ -4,3 +4,4 @@ yarn.lock
 .idea
 *.iml
 /.env
+/**/.DS_Store

@@ -5,7 +5,7 @@
   "description": "electron-updater example project",
   "author": "Robert Patrick",
   "scripts": {
-    "publish": "build -p always"
+    "publish": "electron-builder --config electron-builder.yaml -p always"
   },
   "devDependencies": {
     "dotenv": "^9.0.2",
@@ -16,15 +16,5 @@
   "dependencies": {
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9"
-  },
-  "build": {
-    "appId": "com.github.robertpatrick.electronupdaterexample",
-    "mac": {
-      "category": "Utility",
-      "target": [
-        "zip",
-        "dmg"
-      ]
-    }
   }
 }
