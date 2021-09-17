@@ -3,3 +3,4 @@ dist/
 yarn.lock
 .idea
 *.iml
+/.env

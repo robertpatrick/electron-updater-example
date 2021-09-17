@@ -1,0 +1,16 @@
+appId: com.github.robertpatrick.electronupdaterexample
+productName: Electron Updater Example
+asar: true
+afterSign: ./build/notarize.js
+directories:
+  output: dist
+mac:
+  category: Utility
+  target: dmg
+  darkModeSupport: false
+  type: distribution
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: ./build/entitlements.mac.plist
+dmg:
+  sign: false
