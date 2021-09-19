@@ -14,3 +14,11 @@ mac:
   entitlements: ./build/entitlements.mac.plist
 dmg:
   sign: false
+win:
+  target: nsis
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+linux:
+  category: Utility
+  target: AppImage
