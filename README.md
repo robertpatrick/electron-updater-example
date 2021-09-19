@@ -15,7 +15,7 @@ If you can't use GitHub, you can use other providers:
 
 ```
 APPLEID=<Apple Developer ID>
-APPLEIDPASS=<Apple Developer IP Password or authentication token>
+APPLEIDPASS=<Apple Developer ID Password or authentication token>
 ```
 
 3. Adjust `package.json`, `electron-builder.yaml`, and `build/notarize.js`.
