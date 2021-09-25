@@ -6,3 +6,4 @@ yarn.lock
 /.env
 /**/.DS_Store
 /docker.env
+/setEnv.sh
