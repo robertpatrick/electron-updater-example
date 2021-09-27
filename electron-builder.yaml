@@ -4,11 +4,12 @@ asar: true
 afterSign: ./build/notarize.js
 directories:
   output: dist
-files:
-  - !setEnv.sh
-  - !.env
-  - !docker.env
-  - !.DS_Store
+files: [
+  "!setEnv.sh",
+  "!.env",
+  "!docker.env",
+  "!.DS_Store"
+]
 mac:
   category: Utility
   target: default
