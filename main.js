@@ -85,6 +85,14 @@ function createDefaultWindow() {
   win.on('closed', () => {
     win = null;
   });
+
+  if (process.platform === 'linux' && process.env.HTTPS_PROXY) {
+    const bypassProxyHosts = process.env.NO_PROXY;
+    win.webContents.session.setProxy({
+      proxyRules: process.env.HTTPS_PROXY,
+      proxyBypassRules: bypassProxyHosts
+    });
+  }
   win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
   return win;
 }
