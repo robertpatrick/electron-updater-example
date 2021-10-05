@@ -2,6 +2,22 @@
 // See LICENSE for details
 
 const {app, BrowserWindow, Menu, protocol, ipcMain} = require('electron');
+if (process.platform === 'linux') {
+  let proxy;
+  if (process.env.HTTPS_PROXY) {
+    proxy = process.env.HTTPS_PROXY;
+  } else if (process.env.HTTP_PROXY) {
+    proxy = process.env.HTTP_PROXY;
+  }
+
+  if (proxy) {
+    app.commandLine.appendSwitch('proxy-server', proxy);
+    if (process.env.NO_PROXY) {
+      app.commandLine.appendSwitch('proxy-bypass-list', process.env.NO_PROXY);
+    }
+  }
+}
+
 const log = require('electron-log');
 const {autoUpdater} = require("electron-updater");
 
@@ -69,6 +85,14 @@ function createDefaultWindow() {
   win.on('closed', () => {
     win = null;
   });
+
+  if (process.platform === 'linux' && process.env.HTTPS_PROXY) {
+    const bypassProxyHosts = process.env.NO_PROXY;
+    win.webContents.session.setProxy({
+      proxyRules: process.env.HTTPS_PROXY,
+      proxyBypassRules: bypassProxyHosts
+    });
+  }
   win.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
   return win;
 }
