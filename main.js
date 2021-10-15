@@ -97,14 +97,18 @@ function createDefaultWindow() {
   return win;
 }
 
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = false;
+
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
 })
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.');
+  sendStatusToWindow('Update available: ' + JSON.stringify(info));
+  autoUpdater.downloadUpdate().then();
 })
 autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.');
+  sendStatusToWindow('Update not available: ' + JSON.stringify(info));
 })
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
@@ -117,6 +121,7 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
+  autoUpdater.autoInstallOnAppQuit = false;
 });
 app.on('ready', function() {
   // Create the Menu
@@ -154,29 +159,27 @@ app.on('window-all-closed', () => {
 // Uncomment any of the below events to listen for them.  Also,
 // look in the previous section to see them being used.
 //-------------------------------------------------------------------
-autoUpdater.autoDownload = false;
-autoUpdater.autoInstallOnAppQuit = false;
 
 app.on('ready', function()  {
   autoUpdater.checkForUpdates().then();
 });
 
-autoUpdater.on('checking-for-update', (foo) => {
-  log.info('got checking-for-update event: %s', JSON.stringify(foo));
-});
-autoUpdater.on('update-available', (info) => {
-  log.info('got update-available event: %s', JSON.stringify(info));
-})
-autoUpdater.on('update-not-available', (info) => {
-  log.info('got update-not-available event: %s', JSON.stringify(info));
-})
-autoUpdater.on('error', (err) => {
-  log.info('got error event: %s', JSON.stringify(err));
-})
-autoUpdater.on('download-progress', (progressObj) => {
-  log.info('got download-progress event: %s', JSON.stringify(progressObj));
-})
-autoUpdater.on('update-downloaded', (info) => {
-  log.info('got update-downloaded event: %s', JSON.stringify(info));
-  autoUpdater.autoInstallOnAppQuit = true;
-})
+// autoUpdater.on('checking-for-update', (foo) => {
+//   log.info('got checking-for-update event: %s', JSON.stringify(foo));
+// });
+// autoUpdater.on('update-available', (info) => {
+//   log.info('got update-available event: %s', JSON.stringify(info));
+// })
+// autoUpdater.on('update-not-available', (info) => {
+//   log.info('got update-not-available event: %s', JSON.stringify(info));
+// })
+// autoUpdater.on('error', (err) => {
+//   log.info('got error event: %s', JSON.stringify(err));
+// })
+// autoUpdater.on('download-progress', (progressObj) => {
+//   log.info('got download-progress event: %s', JSON.stringify(progressObj));
+// })
+// autoUpdater.on('update-downloaded', (info) => {
+//   log.info('got update-downloaded event: %s', JSON.stringify(info));
+//   autoUpdater.autoInstallOnAppQuit = true;
+// })
