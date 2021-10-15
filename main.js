@@ -98,7 +98,7 @@ function createDefaultWindow() {
 }
 
 autoUpdater.autoDownload = false;
-autoUpdater.autoInstallOnAppQuit = false;
+autoUpdater.autoInstallOnAppQuit = true;
 
 autoUpdater.on('checking-for-update', () => {
   sendStatusToWindow('Checking for update...');
@@ -121,7 +121,21 @@ autoUpdater.on('download-progress', (progressObj) => {
 })
 autoUpdater.on('update-downloaded', (info) => {
   sendStatusToWindow('Update downloaded');
-  autoUpdater.autoInstallOnAppQuit = false;
+  dialog.showMessageBox({
+    title: 'Install Now?',
+    message: 'Would you like to install now or on exit?',
+    type: 'question',
+    buttons: [ 'On Exit', 'Now' ],
+    defaultId: 1,
+    cancelId: 0
+  }).then(dialogResponse => {
+    if (dialogResponse.response) {
+      sendStatusToWindow('Starting Installation and Relaunch process');
+      autoUpdater.quitAndInstall();
+    } else {
+      sendStatusToWindow('Will install on exit');
+    }
+  })
 });
 app.on('ready', function() {
   // Create the Menu
