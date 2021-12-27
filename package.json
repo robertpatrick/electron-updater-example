@@ -1,24 +1,28 @@
 {
   "name": "electron-updater-example",
-  "version": "2.0.0",
+  "version": "1.10.0",
   "main": "main.js",
   "description": "electron-updater example project",
   "author": {
     "name": "Robert Patrick",
     "email": "rhpatrick@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:robertpatrick/electron-updater-example.git"
+  },
   "scripts": {
     "build": "electron-builder --config electron-builder.yaml",
     "publish": "electron-builder --config electron-builder.yaml -p always"
   },
   "devDependencies": {
-    "electron": "^14.0.1",
-    "electron-builder": "^22.11.7",
+    "electron": "^16.0.5",
+    "electron-builder": "^22.14.11",
     "electron-notarize": "^1.1.1",
     "js-yaml": "^4.1.0"
   },
   "dependencies": {
     "electron-log": "^4.4.1",
-    "electron-updater": "^4.3.9"
+    "electron-updater": "^4.6.5"
   }
 }
